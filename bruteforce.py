@@ -1,5 +1,6 @@
 import csv
 from tqdm import tqdm
+import itertools
 
 
 class Action:
@@ -40,26 +41,17 @@ def find_best_investment(actions, max_budget):
         best_investment list[Action]: list of best actions comination
         best_profit int: amount of best profit
     """
-    n = len(actions)
     best_investment = []
     best_profit = 0
 
-    for i in tqdm(range(1, 2**n)):
-        current_budget = max_budget
-        current_investment = []
-        current_profit = 0
+    for r in tqdm(range(1, len(actions) + 1)):
+        for combination in itertools.combinations(actions, r):
+            total_cost = sum(action.cost for action in combination)
+            total_profit = sum(action.profit*action.cost for action in combination)
 
-        for j in range(n):
-            if (i >> j) & 1:
-                action = actions[j]
-                if action.cost <= current_budget:
-                    current_investment.append(action)
-                    current_budget -= action.cost
-                    current_profit += action.cost * action.profit
-
-        if current_profit > best_profit:
-            best_profit = current_profit
-            best_investment = current_investment
+            if total_cost <= max_budget and total_profit > best_profit:
+                best_profit = total_profit
+                best_investment = list(combination)
 
     return best_investment, best_profit
 
