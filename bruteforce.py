@@ -38,19 +38,20 @@ def find_best_investment(actions, max_budget):
         max_budget (int)
 
     Returns:
-        best_investment list[Action]: list of best actions comination
+        best_investment list[Action]: list of best actions combination
         best_profit int: amount of best profit
     """
     best_investment = []
     best_profit = 0
 
-    for r in tqdm(range(1, len(actions) + 1)):
+    for r in tqdm(range(1, len(actions) + 1)): #r test all 1 combination then 2 then 3 etc etc 
         for combination in itertools.combinations(actions, r):
             total_cost = sum(action.cost for action in combination)
             total_profit = sum(action.profit*action.cost for action in combination)
 
             if total_cost <= max_budget and total_profit > best_profit:
                 best_profit = total_profit
+                print(best_profit)
                 best_investment = list(combination)
 
     return best_investment, best_profit
