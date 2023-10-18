@@ -24,40 +24,41 @@ def assign_actions(filename):
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            action = Action(int(row[0]), int(row[1]), float(row[2])/100)
-            data.append(action)
+            if float(row[1]) > 0: # Check if value is positive
+                action = Action(row[0], float(row[1]), float(row[2])/100)
+                data.append(action)
     return data
 
 
 def main():
-    filename = "actions.csv"
+    filename = "dataset2.csv"
     budget = 500
     actions = assign_actions(filename)
 
-    # Crée un problème de programmation linéaire
+    # Create a linear programming problem
     prob = LpProblem("Investment", LpMaximize)
 
-    # Crée une variable binaire pour chaque action (0 pour non achetée, 1 pour achetée)
+    # Create a binary variable for each action (0 for not purchased, 1 for purchased)
     action_vars = LpVariable.dicts("Action", [action.id for action in actions], 0, 1, LpInteger)
 
-    # La fonction objective est de maximiser le profit total
+    # The objective function is to maximize the total profit
     prob += lpSum([action.profit * action.cost * action_vars[action.id] for action in actions])
 
-    # Contrainte : le coût total des actions achetées ne doit pas dépasser le budget
+    # Constraint: the total cost of purchased actions must not exceed the budget
     prob += lpSum([action.cost * action_vars[action.id] for action in actions]) <= budget
 
-    # Résoud le problème
+    # Resolve problem
     prob.solve()
 
-    # Affiche le statut de la résolution
+    # Display the resolution status
     print("Statut de la résolution:", LpStatus[prob.status])
 
-    # Affiche les actions achetées et leur quantité
+    # Display the purchased actions and their quantity
     for action in actions:
         if action_vars[action.id].value() == 1:
             print(f"Acheter {action.id}: {action_vars[action.id].value()} unité")
 
-    # Affiche le profit total
+    # Display the total profit
     print("Profit total:", value(prob.objective))
 
 

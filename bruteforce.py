@@ -25,7 +25,7 @@ def assign_actions(filename):
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            action = Action(int(row[0]), int(row[1]), float(row[2])/100)
+            action = Action(row[0], float(row[1]), float(row[2])/100)
             data.append(action)
     return data
 
@@ -51,7 +51,6 @@ def find_best_investment(actions, max_budget):
 
             if total_cost <= max_budget and total_profit > best_profit:
                 best_profit = total_profit
-                print(best_profit)
                 best_investment = list(combination)
 
     return best_investment, best_profit

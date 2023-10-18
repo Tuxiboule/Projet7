@@ -1,0 +1,15 @@
+mentorat
+
+version optimisée
+retour sur les livrables
+
+
+livrables : 
+C'est quoi les deux types d'algo
+Pourquoi le bruteforce est interessant
+Graphique sur la complexité de l'algo bruteforce -> linéaire, optimisé -> exponentiel mais reste doux très longtemps
+Mettre seulement des phrases dans le pseudocode
+
+algorithme -> script du code
+
+portefolio back django front moteur template django
