@@ -47,11 +47,11 @@ or
 - Bruteforce
   - CSV Reading
   - Itertools library
-  - Optimisation algorithms : Using a combinatorial optimization algorithm to find the best combination of actions.
+  - Optimisation algorithms
 
 - Optimized
-  - Using PuLP (Linear Programming) : Using the PuLP library to formulate the linear optimization problem.
-  - Modeling Optimization Problems : Understanding how to model a linear optimization problem using binary variables and linear constraints.
+  - Using PuLP (Linear Programming)
+  - Modeling Optimization Problems
 
 ## Credits
 [Tuxiboule](https://github.com/Tuxiboule)
